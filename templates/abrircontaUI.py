@@ -4,9 +4,9 @@ from views import View
 class AbrirContaUI:
   def main():
     st.header("Abrir Conta no Sistema")
-    AbrirContaUI.abrirconta()
+    AbrirContaUI.inserir()
   
-  def abrirconta():
+  def inserir():
     nome = st.text_input("Informe o nome")
     email = st.text_input("Informe o e-mail")
     fone = st.text_input("Informe o fone")

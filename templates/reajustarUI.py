@@ -5,6 +5,6 @@ from views import View
 class ReajustarUI:
     def main():
         st.header("Reajustar valor de um veículo")
-        ReajustarUI.reajustar()
-    def reajustar():
+        ReajustarUI.listar()
+    def listar():
         st.write("Código a programar")

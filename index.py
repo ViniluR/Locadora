@@ -1,4 +1,4 @@
-from templates.entrarUI import EntrarUI
+from templates.loginUI import LoginUI
 from templates.editarperfilUI import EditarPerfilUI
 from templates.abrircontaUI import AbrirContaUI
 from templates.manterclienteUI import ManterClienteUI
@@ -17,7 +17,7 @@ class IndexUI:
 
   def menu_visitante():
     op = st.sidebar.selectbox("Menu", ["Login", "Abrir Conta"])
-    if op == "Login": EntrarUI.main()
+    if op == "Login": LoginUI.main()
     if op == "Abrir Conta": AbrirContaUI.main()
 
   def menu_admin():

@@ -2,10 +2,10 @@ import streamlit as st
 from views import View
 import time
 
-class EntrarUI:
+class LoginUI:
   def main():
     st.header("Entrar no Sistema")
-    EntrarUI.entrar()
+    LoginUI.entrar()
   def entrar():
     email = st.text_input("Informe o e-mail")
     senha = st.text_input("Informe a senha")
