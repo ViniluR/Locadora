@@ -30,22 +30,22 @@ class Cliente:
 
 
 class NCliente:
-  __clientes = []  # lista de clientes inicia vazia
+  __clientes = []
 
   @classmethod
   def inserir(cls, obj):
     cls.abrir()
-    id = 0  # encontrar o maior id já usado
+    id = 0
     for aux in cls.__clientes:
       if aux.get_id() > id: id = aux.get_id()
     obj.set_id(id + 1)
-    cls.__clientes.append(obj)  # insere um cliente (obj) na lista
+    cls.__clientes.append(obj)
     cls.salvar()
 
   @classmethod
   def listar(cls):
     cls.abrir()
-    return cls.__clientes  # retorna a lista de clientes
+    return cls.__clientes
 
   @classmethod
   def listar_id(cls, id):
