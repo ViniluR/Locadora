@@ -37,8 +37,8 @@ class NCliente:
     cls.abrir()
     id = 0
     for aux in cls.__clientes:
-      if aux.get_id() > id: id = aux.get_id()
-    obj.set_id(id + 1)
+      if aux.get_id() > id: id = aux.get_id() + 1
+    obj.set_id(id)
     cls.__clientes.append(obj)
     cls.salvar()
 
