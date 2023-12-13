@@ -30,16 +30,16 @@ class Locacao:
     return False
 
   def __str__(self):
-    return f"{self.__id} - {self.__idCliente} - {self.__idVeiculo} - {self.__retirada.strftime('%d/%m/%Y %H:%M')} - {self.__devolucao.strftime('%d/%m/%Y %H:%M')} - {self.__confirmado}"
+    return f"{self.__id} - {self.__idCliente} - {self.__idVeiculo} - {self.__retirada.strftime('%d/%m/%Y')} - {self.__devolucao.strftime('%d/%m/%Y')} - {self.__confirmado}"
 
   def to_json(self):
     return {
-      'id': self.__id,
-      'idCliente': self.__idCliente,
-      'idVeiculo': self.__idVeiculo,
-      'retirada': self.__retirada.strftime('%d/%m/%Y %H:%M'),
-      'devolucao': self.__devolucao.strftime('%d/%m/%Y %H:%M'),
-      'confirmado': self.__confirmado}
+      'ID': self.__id,
+      'Cliente': self.__idCliente,
+      'Veiculo': self.__idVeiculo,
+      'Retirada': self.__retirada.strftime('%d/%m/%Y'),
+      'Devolucao': self.__devolucao.strftime('%d/%m/%Y'),
+      'Confirmado': self.__confirmado}
 
 
 class NLocacao:
@@ -65,21 +65,27 @@ class NLocacao:
     cls.abrir()
     nao_confirmados = []
     for obj in cls.__locacoes:
-      if not obj.get_confirmado():
+      if not obj.get_confirmado() and obj.get_idCliente:
         nao_confirmados.append(obj)
     return nao_confirmados
+
+  @classmethod
+  def listar_id(cls, id):
+    cls.abrir()
+    for obj in cls.__locacoes:
+      if obj.get_id() == id: return obj
+    return None
 
   @classmethod
   def atualizar(cls, obj):
     cls.abrir()
     aux = cls.listar_id(obj.get_id())
-    if aux is not None:
-      aux.set_idCliente(obj.get_idCliente())
-      aux.set_idVeiculo(obj.get_idVeiculo())
-      aux.set_retirada(obj.get_retirada())
-      aux.set_devolucao(obj.get_devolucao())
-      aux.set_confirmado(obj.get_confirmado())
-      cls.salvar()
+    aux.set_idCliente(obj.get_idCliente())
+    aux.set_idVeiculo(obj.get_idVeiculo())
+    aux.set_retirada(obj.get_retirada())
+    aux.set_devolucao(obj.get_devolucao())
+    aux.set_confirmado(obj.get_confirmado())
+    cls.salvar()
 
   @classmethod
   def excluir(cls, obj):
@@ -98,8 +104,8 @@ class NLocacao:
         for obj in locacoes_json:
           aux = Locacao(
             obj["id"], obj["idCliente"], obj["idVeiculo"],
-            datetime.datetime.strptime(obj["retirada"], "%d/%m/%Y %H:%M"),
-            datetime.datetime.strptime(obj["devolucao"], "%d/%m/%Y %H:%M"),
+            datetime.datetime.strptime(obj["retirada"], "%d/%m/%Y"),
+            datetime.datetime.strptime(obj["devolucao"], "%d/%m/%Y"),
             obj["confirmado"])
           cls.__locacoes.append(aux)
     except FileNotFoundError:

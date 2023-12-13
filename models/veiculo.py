@@ -2,7 +2,6 @@ import json
 
 class Veiculo:
   def __init__(self, id, marca, modelo, ano, valor):
-    if valor <= 0: raise ValueError("Valor inválido")
     self.__id = id
     self.__marca = marca
     self.__modelo = modelo
@@ -19,9 +18,7 @@ class Veiculo:
   def set_marca(self, marca): self.__marca = marca
   def set_modelo(self, modelo): self.__modelo = modelo
   def set_ano(self, ano): self.__ano = ano
-  def set_valor(self, valor):
-    if valor <= 0: raise ValueError("Valor inválido")
-    self.__valor = valor
+  def set_valor(self, valor): self.__valor = valor
 
   def __eq__(self, x):
     if self.__id == x.__id and self.__marca == x.__marca and self.__modelo == x.__modelo and self.__ano == x.__ano and self.__valor == x.__valor:
@@ -30,6 +27,15 @@ class Veiculo:
 
   def __str__(self):
     return f"{self.__id} - {self.__marca} - {self.__modelo} - {self.__ano} - {self.__valor:.2f}"
+  
+  def to_json(self):
+    return {
+      'ID': self.__id,
+      'Marca': self.__marca,
+      'Modelo': self.__modelo,
+      'Ano': self.__ano,
+      'Valor p/dia': self.__valor}
+
 
 
 class NVeiculo:

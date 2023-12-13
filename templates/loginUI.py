@@ -7,8 +7,8 @@ class LoginUI:
     st.header("Entrar no Sistema")
     LoginUI.entrar()
   def entrar():
-    email = st.text_input("Informe o e-mail")
-    senha = st.text_input("Informe a senha")
+    email = st.text_input("E-mail")
+    senha = st.text_input("Senha")
     if st.button("Login"):
       cliente = View.cliente_login(email, senha) 
       if cliente is not None:

@@ -17,7 +17,7 @@ class ManterClienteUI:
       st.write("Nenhum cliente cadastrado")
     else:
       dic = []
-      for obj in clientes: dic.append(obj.__dict__)
+      for obj in clientes: dic.append(obj.to_json())
       df = pd.DataFrame(dic)
       st.dataframe(df)
 

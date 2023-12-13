@@ -12,5 +12,8 @@ class AbrirContaUI:
     fone = st.text_input("Informe o fone")
     senha = st.text_input("Informe a senha")
     if st.button("Cadastrar"):
-      View.cliente_inserir(nome, email, fone, senha)
-      st.success("Conta criada com sucesso")
+      if nome == "admin":
+        st.error("Nome não pode ser admin")
+      else:
+        View.cliente_inserir(nome, email, fone, senha)
+        st.success("Conta criada com sucesso")

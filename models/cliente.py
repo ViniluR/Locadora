@@ -27,6 +27,15 @@ class Cliente:
 
   def __str__(self):
     return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
+  
+  def to_json(self):
+    return {
+      'ID': self.__id,
+      'Nome do cliente': self.__nome,
+      'E-mail do cliente': self.__email,
+      'Telefone': self.__fone,
+      'Senha': self.__senha}
+
 
 
 class NCliente:
@@ -37,7 +46,7 @@ class NCliente:
     cls.abrir()
     id = 0
     for aux in cls.__clientes:
-      if aux.get_id() > id: id = aux.get_id() + 1
+      if aux.get_id() >= id: id = aux.get_id() + 1
     obj.set_id(id)
     cls.__clientes.append(obj)
     cls.salvar()
