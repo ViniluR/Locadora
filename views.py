@@ -85,3 +85,18 @@ class View:
     veiculo = NVeiculo.listar_id(id)
     valor = veiculo.get_valor()
     return valor * int((obj.get_devolucao() - obj.get_retirada()).days)
+
+  def veiculo_disponivel(veiculo, retirada, devolucao):
+    for loc in View.locacao_listar():
+      if loc.get_idVeiculo() == veiculo.get_id():
+          if View.locacao_periodo(loc, retirada, devolucao):
+            return False
+    return True
+
+  def veiculo_disponiveis(inicio, final):
+    veiculos = View.veiculo_listar()
+    for loc in View.locacao_listar():
+      if View.locacao_periodo(loc, inicio, final):
+         if View.veiculo_listar_id(loc.get_idVeiculo()) in veiculos:
+           veiculos.remove(View.veiculo_listar_id(loc.get_idVeiculo()))
+    return veiculos

@@ -103,10 +103,10 @@ class NLocacao:
         locacoes_json = json.load(arquivo)
         for obj in locacoes_json:
           aux = Locacao(
-            obj["id"], obj["idCliente"], obj["idVeiculo"],
-            datetime.datetime.strptime(obj["retirada"], "%d/%m/%Y"),
-            datetime.datetime.strptime(obj["devolucao"], "%d/%m/%Y"),
-            obj["confirmado"])
+            obj["ID"], obj["Cliente"], obj["Veiculo"],
+            datetime.datetime.strptime(obj["Retirada"], "%d/%m/%Y"),
+            datetime.datetime.strptime(obj["Devolucao"], "%d/%m/%Y"),
+            obj["Confirmado"])
           cls.__locacoes.append(aux)
     except FileNotFoundError:
       pass

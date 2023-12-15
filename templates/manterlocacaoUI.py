@@ -28,18 +28,13 @@ class ManterLocacaoUI:
         retirada = st.text_input("Data de retirada (DD/MM/AAAA)")
         devolucao = st.text_input("Data de devolução (DD/MM/AAAA)")
         if st.button("Inserir"):
-          pode = True
-          for loc in View.locacao_listar():
-            if loc.get_idVeiculo() == veiculo.get_id():
-                if View.locacao_periodo(loc, retirada, devolucao):
-                   pode = False
-          if pode:
+          if View.veiculo_disponivel(veiculo, retirada, devolucao):
             retirada = datetime.datetime.strptime(retirada, "%d/%m/%Y")
             devolucao = datetime.datetime.strptime(devolucao, "%d/%m/%Y")
             View.locacao_inserir(cliente.get_id(), veiculo.get_id(), retirada, devolucao)
             st.success("Locação inserida com sucesso")
           else:
-             st.error("Veículo não disponível para o intervalo de tempo selecionado")
+             st.error("Veículo indisponível para o intervalo de tempo selecionado")
 
     def atualizar():
         locacoes = View.locacao_listar()
@@ -52,10 +47,13 @@ class ManterLocacaoUI:
             retirada = st.text_input("Nova data de retirada")
             devolucao = st.text_input("Nova data de devolucao")
             if st.button("Atualizar"):
+              if View.veiculo_disponivel(veiculo, retirada, devolucao):
                 retirada = datetime.datetime.strptime(retirada, "%d/%m/%Y")
                 devolucao = datetime.datetime.strptime(devolucao, "%d/%m/%Y")
                 View.locacao_atualizar(op.get_id(), cliente.get_id(), veiculo.get_id(), retirada, devolucao, False)
                 st.success("Locação atualizada com sucesso")
+              else:
+                st.error("Veículo indisponível para o intervalo de tempo selecionado")
 
     def excluir():
         locacoes = View.locacao_listar()

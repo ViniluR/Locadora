@@ -11,6 +11,7 @@ class ConfirmarUI:
         if len(locacoes) == 0:
           st.write("Nenhuma locação solicitada")
         else:
+          st.write("Locações solicitadas")
           dic = []
           for obj in locacoes: dic.append(obj.to_json())
           df = pd.DataFrame(dic)
