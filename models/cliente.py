@@ -1,4 +1,5 @@
 import json
+from models.modelo import Modelo
 
 class Cliente:
   def __init__(self, id, nome, email, fone, senha):
@@ -38,53 +39,11 @@ class Cliente:
 
 
 
-class NCliente:
-  __clientes = []
-
-  @classmethod
-  def inserir(cls, obj):
-    cls.abrir()
-    id = 0
-    for aux in cls.__clientes:
-      if aux.get_id() >= id: id = aux.get_id() + 1
-    obj.set_id(id)
-    cls.__clientes.append(obj)
-    cls.salvar()
-
-  @classmethod
-  def listar(cls):
-    cls.abrir()
-    return cls.__clientes
-
-  @classmethod
-  def listar_id(cls, id):
-    cls.abrir()
-    for obj in cls.__clientes:
-      if obj.get_id() == id: return obj
-    return None
-
-  @classmethod
-  def atualizar(cls, obj):
-    cls.abrir()
-    aux = cls.listar_id(obj.get_id())
-    if aux is not None:
-      aux.set_nome(obj.get_nome())
-      aux.set_email(obj.get_email())
-      aux.set_fone(obj.get_fone())
-      aux.set_senha(obj.get_senha())
-      cls.salvar()
-
-  @classmethod
-  def excluir(cls, obj):
-    cls.abrir()
-    aux = cls.listar_id(obj.get_id())
-    if aux is not None:
-      cls.__clientes.remove(aux)
-      cls.salvar()
+class NCliente(Modelo):
 
   @classmethod
   def abrir(cls):
-    cls.__clientes = []
+    cls.objetos = []
     try:
       with open("clientes.json", mode="r") as arquivo:
         clientes_json = json.load(arquivo)
@@ -94,11 +53,11 @@ class NCliente:
                         obj["_Cliente__email"],
                         obj["_Cliente__fone"],
                         obj["_Cliente__senha"])
-          cls.__clientes.append(aux)
+          cls.objetos.append(aux)
     except FileNotFoundError:
       pass
 
   @classmethod
   def salvar(cls):
     with open("clientes.json", mode="w") as arquivo:
-      json.dump(cls.__clientes, arquivo, default=vars)
+      json.dump(cls.objetos, arquivo, default=vars)

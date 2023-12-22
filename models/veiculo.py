@@ -1,4 +1,5 @@
 import json
+from models.modelo import Modelo
 
 class Veiculo:
   def __init__(self, id, marca, modelo, ano, valor):
@@ -38,63 +39,21 @@ class Veiculo:
 
 
 
-class NVeiculo:
-  __veiculos = []
-
-  @classmethod
-  def inserir(cls, obj):
-    cls.abrir()
-    id = 0
-    for aux in cls.__veiculos:
-      if aux.get_id() > id: id = aux.get_id()
-    obj.set_id(id + 1)
-    cls.__veiculos.append(obj)
-    cls.salvar()
-
-  @classmethod
-  def listar(cls):
-    cls.abrir()
-    return cls.__veiculos
-
-  @classmethod
-  def listar_id(cls, id):
-    cls.abrir()
-    for obj in cls.__veiculos:
-      if obj.get_id() == id: return obj
-    return None
-
-  @classmethod
-  def atualizar(cls, obj):
-    cls.abrir()
-    aux = cls.listar_id(obj.get_id())
-    if aux is not None:
-      aux.set_marca(obj.get_marca())
-      aux.set_modelo(obj.get_modelo())
-      aux.set_ano(obj.get_ano())
-      aux.set_valor(obj.get_valor())
-      cls.salvar()
-
-  @classmethod
-  def excluir(cls, obj):
-    cls.abrir()
-    aux = cls.listar_id(obj.get_id())
-    if aux is not None:
-      cls.__veiculos.remove(aux)
-      cls.salvar()
+class NVeiculo(Modelo):
 
   @classmethod
   def abrir(cls):
-    cls.__veiculos = []
+    cls.objetos = []
     try:
       with open("veiculos.json", mode="r") as arquivo:
         veiculos_json = json.load(arquivo)
         for obj in veiculos_json:
           aux = Veiculo(obj["_Veiculo__id"], obj["_Veiculo__marca"], obj["_Veiculo__modelo"], obj["_Veiculo__ano"], obj["_Veiculo__valor"])
-          cls.__veiculos.append(aux)
+          cls.objetos.append(aux)
     except FileNotFoundError:
       pass
 
   @classmethod
   def salvar(cls):
     with open("veiculos.json", mode="w") as arquivo:
-      json.dump(cls.__veiculos, arquivo, default=vars)
+      json.dump(cls.objetos, arquivo, default=vars)
