@@ -1,1 +1,1 @@
-[{"ID": 1, "Cliente": 1, "Veiculo": 1, "Retirada": "12/12/2023", "Devolucao": "14/12/2023", "Confirmado": false}]
+[{"ID": 3, "Cliente": 1, "Veiculo": 1, "Retirada": "01/01/2023", "Devolucao": "05/01/2023", "Confirmado": false}, {"ID": 1, "Cliente": 1, "Veiculo": 2, "Retirada": "01/01/2024", "Devolucao": "04/01/2024", "Confirmado": true}]

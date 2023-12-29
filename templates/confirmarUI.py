@@ -7,7 +7,7 @@ class ConfirmarUI:
         st.header("Confirmar locação")
         ConfirmarUI.confirmar()
     def confirmar():
-        locacoes = View.locacao_naoconfirmados()
+        locacoes = View.locacao_nao_confirmados()
         if len(locacoes) == 0:
           st.write("Nenhuma locação solicitada")
         else:

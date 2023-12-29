@@ -64,7 +64,7 @@ class View:
   def locacao_excluir(id):
     NLocacao.excluir(Locacao(id, 0, 0, "", "", ""))
 
-  def locacao_naoconfirmados():
+  def locacao_nao_confirmados():
     return NLocacao.listar_nao_confirmados()
 
   def locacao_listarcliente(cliente):

@@ -46,6 +46,15 @@ class Locacao:
 class NLocacao(Modelo):
 
   @classmethod
+  def listar_nao_confirmados(cls):
+    cls.abrir()
+    nao_confirmados = []
+    for obj in cls.objetos:
+      if not obj.get_confirmado():
+        nao_confirmados.append(obj)
+    return nao_confirmados
+
+  @classmethod
   def abrir(cls):
     cls.objetos = []
     try:
